@@ -10,27 +10,42 @@ FoamFile
     version     2.0;
     format      ascii;
     class       volScalarField;
-    object      k;
+    object      epsilon;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [ 0 2 -2 0 0 0 0 ];
+dimensions      [0 2 -3 0 0 0 0];
 
-internalField   uniform 0.2;
+internalField   uniform 14.855;
 
 boundaryField
 {
-    #includeEtc "caseDicts/setConstraintTypes"
-
-    "(walls|hole)"
+    inlet
     {
-        type            kqRWallFunction;
-        value           uniform 0;
+        type            fixedValue;
+        value           uniform 14.855;
     }
 
-    overset
+    outlet
     {
-        type            overset;
+        type            zeroGradient;
+    }
+
+    upperWall
+    {
+        type            epsilonWallFunction;
+        value           uniform 14.855;
+    }
+
+    lowerWall
+    {
+        type            epsilonWallFunction;
+        value           uniform 14.855;
+    }
+
+    frontAndBack
+    {
+        type            empty;
     }
 }
 

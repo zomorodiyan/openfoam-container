@@ -9,29 +9,14 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       volScalarField;
-    object      nuTilda;
+    class       dictionary;
+    object      transportProperties;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [0 2 -1 0 0 0 0];
+transportModel  Newtonian;
 
-internalField   uniform 0;
-
-boundaryField
-{
-    #includeEtc "caseDicts/setConstraintTypes"
-
-    overset
-    {
-        type            overset;
-    }
-
-    ".*"
-    {
-        type            zeroGradient;
-    }
-}
+nu              1e-05;
 
 
 // ************************************************************************* //

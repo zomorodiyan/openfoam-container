@@ -9,34 +9,44 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       volVectorField;
-    object      U;
+    class       volScalarField;
+    object      nut;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [0 1 -1 0 0 0 0];
+dimensions      [0 2 -1 0 0 0 0];
 
-internalField   uniform (0 0 0);
+internalField   uniform 0;
 
 boundaryField
 {
-    #includeEtc "caseDicts/setConstraintTypes"
-
-    walls
+    inlet
     {
-        type            uniformFixedValue;
-        uniformValue    (0 0 0);
+        type            calculated;
+        value           uniform 0;
     }
 
-    hole
+    outlet
     {
-        type            movingWallVelocity;
-        value           uniform (0 0 0);
+        type            calculated;
+        value           uniform 0;
     }
 
-    overset
+    upperWall
     {
-        type            overset;
+        type            nutkWallFunction;
+        value           uniform 0;
+    }
+
+    lowerWall
+    {
+        type            nutkWallFunction;
+        value           uniform 0;
+    }
+
+    frontAndBack
+    {
+        type            empty;
     }
 }
 

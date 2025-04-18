@@ -9,59 +9,45 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       dictionary;
-    object      topoSetDict;
+    class       volScalarField;
+    object      omega;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-actions
-(
+dimensions      [0 0 -1 0 0 0 0];
+
+internalField   uniform 440.15;
+
+boundaryField
+{
+    inlet
     {
-        name    c0;
-        type    cellSet;
-        action  new;
-        source  regionToCell;
-        insidePoints ((0.01 0.01 0.01));
+        type            fixedValue;
+        value           $internalField;
     }
 
+    outlet
     {
-        name    c1;
-        type    cellSet;
-        action  new;
-        source  cellToCell;
-        set     c0;
+        type            zeroGradient;
     }
 
+    upperWall
     {
-        name    c1;
-        type    cellSet;
-        action  invert;
+        type            omegaWallFunction;
+        value           $internalField;
     }
 
-    // Select box to remove from region 1
-
+    lowerWall
     {
-        name    box;
-        type    cellSet;
-        action  new;
-        source  cellToCell;
-        set     c1;
+        type            omegaWallFunction;
+        value           $internalField;
     }
 
+    frontAndBack
     {
-        name    box;
-        type    cellSet;
-        action  subset;
-        source  boxToCell;
-        box     (0.025 0.045 -100)(0.075 0.055 100);
+        type            empty;
     }
-
-    {
-        name    box;
-        type    cellSet;
-        action  invert;
-    }
-);
+}
 
 
 // ************************************************************************* //
