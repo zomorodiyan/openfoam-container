@@ -3,6 +3,7 @@
 # Define the directories to clean
 DIRS=(
   "./case/pitzDaily/processors2"
+  "./case/pitzDaily/postProcessing"
   "./case/pitzDaily/constant/polyMesh"
 )
 
