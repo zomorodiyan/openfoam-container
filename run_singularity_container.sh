@@ -10,7 +10,7 @@
 #SBATCH --error=job_error.log
 
 # Load Apptainer (if your cluster uses modules)
-module load apptainer
+#module load apptainer
 
 # Define variables
 CASE_DIR=/home/mzomoro1/openfoam-container/case/pitzDaily
@@ -23,7 +23,7 @@ apptainer exec $SIF_PATH bash -c "source /opt/OpenFOAM/OpenFOAM-v2212/etc/bashrc
 apptainer exec $SIF_PATH bash -c "source /opt/OpenFOAM/OpenFOAM-v2212/etc/bashrc && cd $CASE_DIR && decomposePar"
 
 # Step 3: Run solver (example: icoFoam)
-srun --mpi=pmi2 apptainer exec $SIF_PATH bash -c "source /opt/OpenFOAM/OpenFOAM-v2212/etc/bashrc && cd $CASE_DIR && mpirun -np 2 simpleFoam -parallel"
+srun --mpi=pmi2 apptainer exec $SIF_PATH bash -c "source /opt/OpenFOAM/OpenFOAM-v2212/etc/bashrc && cd $CASE_DIR && simpleFoam -parallel"
 
 # Step 4: Reconstruct (optional)
 apptainer exec $SIF_PATH bash -c "source /opt/OpenFOAM/OpenFOAM-v2212/etc/bashrc && cd $CASE_DIR && reconstructPar"
