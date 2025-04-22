@@ -1,4 +1,4 @@
-# To run a shell in the openfoam.sif: 
+# To run openfoam.sif interactively:
 sudo singularity shell --bind /home/mzomoro1/code:/home/mzomoro1/code openfoam.sif
 
 # To run pitzDaily case using openfoam.sif: 
