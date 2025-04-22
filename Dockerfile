@@ -9,7 +9,7 @@ FROM quay.io/pawsey/mpich-base:3.4.3_ubuntu20.04
 
 LABEL maintainer="Alexis.Espinosa@pawsey.org.au"
 #OpenFOAM version to install
-ARG OFVERSION="v2212"
+ARG OFVERSION="10"
 #Using bash from now on
 SHELL ["/bin/bash", "-c"]
 
@@ -119,16 +119,9 @@ RUN apt-get update -qq\
 #...........
 #Step 2. Download
 #Change to the installation dir, download OpenFOAM and untar
-ARG OFVERSIONFORGE=$OFVERSION
 WORKDIR $OFINSTDIR
-RUN wget --no-check-certificate -O OpenFOAM-${OFVERSION}.tgz \
-    "https://sourceforge.net/projects/openfoam/files/OpenFOAM-${OFVERSIONFORGE}.tgz?use_mirror=mesh" \
- && wget --no-check-certificate -O ThirdParty-${OFVERSION}.tgz \
-    "https://sourceforge.net/projects/openfoam/files/ThirdParty-${OFVERSIONFORGE}.tgz?use_mirror=mesh" \
- && tar -xvzf OpenFOAM-${OFVERSION}.tgz \
- && tar -xvzf ThirdParty-${OFVERSION}.tgz \
- && rm -f OpenFOAM-${OFVERSION}.tgz \
- && rm -f ThirdParty-${OFVERSION}.tgz
+RUN git clone --depth 1 --branch master https://github.com/OpenFOAM/OpenFOAM-${OFVERSION}.git OpenFOAM-${OFVERSION} \
+ && git clone --depth 1 --branch master https://github.com/OpenFOAM/ThirdParty-${OFVERSION}.git ThirdParty-${OFVERSION}
 
 #...........
 #Step 3. Definitions for the prefs and bashrc files.
@@ -199,7 +192,6 @@ RUN cp ${OFBASHRC} ${OFBASHRC}.original \
 ##Paraview compilation (Adapted alternative instructions from OpenFoamWiki)
 RUN . ${OFBASHRC} \
 #AEG: recomendation in the ThirdParty-xx/README.md:
- && $WM_PROJECT_DIR/wmake/src/Allmake \
  && cd $WM_THIRD_PARTY_DIR \
  && export QT_SELECT=qt5 \
 #AEG: makeParaView failing due to bash-isms, changing explicitly to bash:
