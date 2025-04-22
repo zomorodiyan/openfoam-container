@@ -5,6 +5,9 @@ DIRS=(
   "./case/pitzDaily/processors2"
   "./case/pitzDaily/postProcessing"
   "./case/pitzDaily/constant/polyMesh"
+  "./case/pitzDaily/100"
+  "./case/pitzDaily/200"
+  "./case/pitzDaily/280"
 )
 
 echo "🧹 Cleaning up OpenFOAM case directories..."
