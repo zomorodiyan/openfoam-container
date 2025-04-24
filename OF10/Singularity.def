@@ -1,0 +1,7 @@
+Bootstrap: docker
+From: zomorodiyan/openfoam10-mpich
+
+%post
+/bin/mv /bin/sh /bin/sh.original
+/bin/ln -s /bin/bash /bin/sh
+echo ". /opt/OpenFOAM/OpenFOAM-10/etc/bashrc" >> $SINGULARITY_ENVIRONMENT
