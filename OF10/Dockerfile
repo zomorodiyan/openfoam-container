@@ -11,8 +11,6 @@ ENV FOAM_INST_DIR=/opt/OpenFOAM \
     FOAMY_HEX_MESH=yes \
     LANG=C.UTF-8 \
     LC_ALL=C.UTF-8 \
-    WM_MPLIB=MPICH \
-    MPI_ROOT=/usr \
     FOAM_MPI=mpi
 
 # Add OpenFOAM apt repo and update
@@ -68,7 +66,7 @@ RUN if [ "$INSTALL_LBF" = "true" ]; then \
       wmake; \
     else echo "Skipping laserbeamFoam install."; fi
 
-# Optional: Auto-load OpenFOAM for interactive shells
+# Auto-load OpenFOAM for interactive shells
 RUN echo "source $FOAM_INST_DIR/OpenFOAM-10/etc/bashrc" >> /etc/bash.bashrc
 
 # Default working directory
