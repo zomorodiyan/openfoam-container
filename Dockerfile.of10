@@ -58,13 +58,6 @@ RUN source $FOAM_INST_DIR/OpenFOAM-10/etc/bashrc && \
     ./Allwmake -j $(nproc) > /tmp/openfoam-build.log 2>&1 || \
     (echo "======= BUILD FAILED: Last 500 lines =======" && tail -n 500 /tmp/openfoam-build.log && false)
 
-# Optional: Install laserbeamFoam if requested
-#RUN if [ "$INSTALL_LBF" = "true" ]; then \
-#      git clone https://github.com/micmog/LaserbeamFoam.git $FOAM_INST_DIR/OpenFOAM-10/applications/solvers/laserbeamFoam && \
-#      source $FOAM_INST_DIR/OpenFOAM-10/etc/bashrc && \
-#      cd $FOAM_INST_DIR/OpenFOAM-10/applications/solvers/laserbeamFoam && \
-#      wmake; \
-#    else echo "Skipping laserbeamFoam install."; fi
 
 # Auto-load OpenFOAM for interactive shells
 RUN echo "source $FOAM_INST_DIR/OpenFOAM-10/etc/bashrc" >> /etc/bash.bashrc

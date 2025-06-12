@@ -1,0 +1,31 @@
+FROM zomorodiyan/openfoam10:mpich-jun11
+
+# Set OpenFOAM environment
+ENV FOAM_INST_DIR=/opt/OpenFOAM \
+    WM_PROJECT=OpenFOAM \
+    WM_PROJECT_VERSION=10 \
+    WM_PROJECT_DIR=/opt/OpenFOAM/OpenFOAM-10 \
+    WM_PROJECT_USER_DIR=/opt/OpenFOAM/OpenFOAM-10
+
+SHELL ["/bin/bash", "-c"]
+
+# Clone and build laserbeamFoam
+RUN rm -rf /opt/OpenFOAM/laserbeamFoam && \
+    git clone https://github.com/micmog/laserbeamFoam.git /opt/OpenFOAM/laserbeamFoam && \
+    source /opt/OpenFOAM/OpenFOAM-10/etc/bashrc && \
+    export WM_PROJECT_USER_DIR=/opt/OpenFOAM/OpenFOAM-10 && \
+    cd /opt/OpenFOAM/laserbeamFoam && \
+    ./Allwmake -j && \
+    if [ -f /root/OpenFOAM/-10/platforms/linux64GccDPInt32Opt/bin/laserbeamFoam ]; then \
+        mv /root/OpenFOAM/-10/platforms/linux64GccDPInt32Opt/bin/laserbeamFoam /opt/OpenFOAM/OpenFOAM-10/platforms/linux64GccDPInt32Opt/bin/; \
+    fi && \
+    if [ -f /root/OpenFOAM/-10/platforms/linux64GccDPInt32Opt/lib/liblaserHeatSource.so ]; then \
+        mv /root/OpenFOAM/-10/platforms/linux64GccDPInt32Opt/lib/liblaserHeatSource.so /opt/OpenFOAM/OpenFOAM-10/platforms/linux64GccDPInt32Opt/lib/; \
+    fi && \
+    chmod -R a+rX /opt/OpenFOAM/laserbeamFoam
+
+# Auto-load OpenFOAM
+RUN echo "source /opt/OpenFOAM/OpenFOAM-10/etc/bashrc" >> /etc/bash.bashrc
+
+WORKDIR /home/openfoam
+
