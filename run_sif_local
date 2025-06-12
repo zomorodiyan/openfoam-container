@@ -1,5 +1,6 @@
 # To run openfoam.sif interactively:
-sudo singularity shell --bind /home/mzomoro1/code:/home/mzomoro1/code openfoam.sif
+sudo singularity shell --bind /home/mzomoro1/code:/home/mzomoro1/code
+OF10/openfoam10_jun11.sif
 
 # To run pitzDaily case using openfoam.sif: 
-sudo apptainer exec --bind /home/mzomoro1/code:/home/mzomoro1/code openfoam.sif bash -c "source /opt/OpenFOAM/OpenFOAM-v2212/etc/bashrc && cd /home/mzomoro1/code/openfoam-container/case/pitzDaily && blockMesh && decomposePar && mpirun -np 2 simpleFoam -parallel"
+#sudo apptainer exec --bind /home/mzomoro1/code:/home/mzomoro1/code openfoam.sif bash -c "source /opt/OpenFOAM/OpenFOAM-v2212/etc/bashrc && cd /home/mzomoro1/code/openfoam-container/case/pitzDaily && blockMesh && decomposePar && mpirun -np 2 simpleFoam -parallel"

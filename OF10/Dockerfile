@@ -59,12 +59,12 @@ RUN source $FOAM_INST_DIR/OpenFOAM-10/etc/bashrc && \
     (echo "======= BUILD FAILED: Last 500 lines =======" && tail -n 500 /tmp/openfoam-build.log && false)
 
 # Optional: Install laserbeamFoam if requested
-RUN if [ "$INSTALL_LBF" = "true" ]; then \
-      git clone https://github.com/micmog/LaserbeamFoam.git $FOAM_INST_DIR/OpenFOAM-10/applications/solvers/laserbeamFoam && \
-      source $FOAM_INST_DIR/OpenFOAM-10/etc/bashrc && \
-      cd $FOAM_INST_DIR/OpenFOAM-10/applications/solvers/laserbeamFoam && \
-      wmake; \
-    else echo "Skipping laserbeamFoam install."; fi
+#RUN if [ "$INSTALL_LBF" = "true" ]; then \
+#      git clone https://github.com/micmog/LaserbeamFoam.git $FOAM_INST_DIR/OpenFOAM-10/applications/solvers/laserbeamFoam && \
+#      source $FOAM_INST_DIR/OpenFOAM-10/etc/bashrc && \
+#      cd $FOAM_INST_DIR/OpenFOAM-10/applications/solvers/laserbeamFoam && \
+#      wmake; \
+#    else echo "Skipping laserbeamFoam install."; fi
 
 # Auto-load OpenFOAM for interactive shells
 RUN echo "source $FOAM_INST_DIR/OpenFOAM-10/etc/bashrc" >> /etc/bash.bashrc
@@ -72,3 +72,9 @@ RUN echo "source $FOAM_INST_DIR/OpenFOAM-10/etc/bashrc" >> /etc/bash.bashrc
 # Default working directory
 WORKDIR /home/openfoam
 
+# Add OpenFOAM entrypoint wrapper for consistent environment setup
+# COPY openfoam-entrypoint.sh /usr/local/bin/openfoam-entrypoint.sh
+# RUN chmod +x /usr/local/bin/openfoam-entrypoint.sh
+
+# Set as default entrypoint for Singularity/Docker use
+# ENTRYPOINT ["/usr/local/bin/openfoam-entrypoint.sh"]

@@ -2,12 +2,13 @@
 
 # Define the directories to clean
 DIRS=(
-  "./case/pitzDaily/processors2"
+  "./case/pitzDaily/processor0"
+  "./case/pitzDaily/processor1"
   "./case/pitzDaily/postProcessing"
   "./case/pitzDaily/constant/polyMesh"
   "./case/pitzDaily/100"
   "./case/pitzDaily/200"
-  "./case/pitzDaily/280"
+  "./case/pitzDaily/287"
 )
 
 echo "🧹 Cleaning up OpenFOAM case directories..."
