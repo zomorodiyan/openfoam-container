@@ -1,4 +1,4 @@
-# LaserbeamFoam — Containerized Workflows for OpenFOAM-10 & LaserbeamFoam
+# Containerized Workflows for OpenFOAM-10 & LaserbeamFoam
 
 This repository provides ready-to-use **Docker** and **Apptainer (Singularity)** recipes for:
 
