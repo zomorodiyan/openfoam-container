@@ -1,8 +1,5 @@
 FROM quay.io/pawsey/mpich-base:3.4.3_ubuntu20.04
 
-# Toggle LBF build ON or OFF
-ARG INSTALL_LBF=true
-
 # Core OpenFOAM env variables
 ENV FOAM_INST_DIR=/opt/OpenFOAM \
     WM_PROJECT=OpenFOAM \
@@ -48,7 +45,6 @@ RUN echo "export WM_MPLIB=SYSTEMMPI" >> $FOAM_INST_DIR/OpenFOAM-10/etc/prefs.sh 
     echo "export MPI_ARCH_LIBS='-L/usr/lib/x86_64-linux-gnu -lmpich -lrt'" >> $FOAM_INST_DIR/OpenFOAM-10/etc/prefs.sh && \
     echo "export SCOTCH_TYPE=system" >> $FOAM_INST_DIR/OpenFOAM-10/etc/prefs.sh
 
-
 # Set bash as default shell
 SHELL ["/bin/bash", "-c"]
 
@@ -58,16 +54,8 @@ RUN source $FOAM_INST_DIR/OpenFOAM-10/etc/bashrc && \
     ./Allwmake -j $(nproc) > /tmp/openfoam-build.log 2>&1 || \
     (echo "======= BUILD FAILED: Last 500 lines =======" && tail -n 500 /tmp/openfoam-build.log && false)
 
-
 # Auto-load OpenFOAM for interactive shells
 RUN echo "source $FOAM_INST_DIR/OpenFOAM-10/etc/bashrc" >> /etc/bash.bashrc
 
 # Default working directory
 WORKDIR /home/openfoam
-
-# Add OpenFOAM entrypoint wrapper for consistent environment setup
-# COPY openfoam-entrypoint.sh /usr/local/bin/openfoam-entrypoint.sh
-# RUN chmod +x /usr/local/bin/openfoam-entrypoint.sh
-
-# Set as default entrypoint for Singularity/Docker use
-# ENTRYPOINT ["/usr/local/bin/openfoam-entrypoint.sh"]
