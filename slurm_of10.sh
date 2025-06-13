@@ -19,14 +19,14 @@ SIF_PATH=/home/mzomoro1/openfoam-container/openfoam.sif
 exec 2> >(grep -v '/opt/OpenFOAM' >&2)
 
 # Step 1: blockMesh
-apptainer exec $SIF_PATH bash -c "source /opt/OpenFOAM/OpenFOAM-v2212/etc/bashrc && cd $CASE_DIR && blockMesh"
+apptainer exec $SIF_PATH bash -c "source /opt/OpenFOAM/OpenFOAM-10/etc/bashrc && cd $CASE_DIR && blockMesh"
 
 # Step 2: decomposePar
-apptainer exec $SIF_PATH bash -c "source /opt/OpenFOAM/OpenFOAM-v2212/etc/bashrc && cd $CASE_DIR && decomposePar"
+apptainer exec $SIF_PATH bash -c "source /opt/OpenFOAM/OpenFOAM-10/etc/bashrc && cd $CASE_DIR && decomposePar"
 
 # Step 3: Run solver
-srun --mpi=pmi2 apptainer exec $SIF_PATH bash -c "source /opt/OpenFOAM/OpenFOAM-v2212/etc/bashrc && cd $CASE_DIR && simpleFoam -parallel"
+srun --mpi=pmi2 apptainer exec $SIF_PATH bash -c "source /opt/OpenFOAM/OpenFOAM-10/etc/bashrc && cd $CASE_DIR && simpleFoam -parallel"
 
 # Step 4: Reconstruct
-apptainer exec $SIF_PATH bash -c "source /opt/OpenFOAM/OpenFOAM-v2212/etc/bashrc && cd $CASE_DIR && reconstructPar"
+apptainer exec $SIF_PATH bash -c "source /opt/OpenFOAM/OpenFOAM-10/etc/bashrc && cd $CASE_DIR && reconstructPar"
 
