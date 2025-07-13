@@ -1,5 +1,5 @@
 Bootstrap: docker
-From: zomorodiyan/openfoam10-lbf:mpich-jun12
+From: zomorodiyan/openfoam10lbf:mpich
 
 %post
     ln -sf /bin/bash /bin/sh
