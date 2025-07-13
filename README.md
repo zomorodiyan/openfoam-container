@@ -44,7 +44,7 @@ sudo singularity build openfoam10.sif Singularity.def
 # Interactive shell
 sudo singularity shell \
   --bind /home/mzomoro1/code:/home/mzomoro1/code \
-  OF10/openfoam10_jun11.sif
+  openfoam10_jun11.sif
 ```
 
 ## 2.3 Run an OpenFOAM tutorial via Slurm on **Sol** with the *.sif*
