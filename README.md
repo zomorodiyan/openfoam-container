@@ -69,8 +69,7 @@ docker run -it --rm \
 cd case/pitzDaily/
 blockMesh
 decomposePar
-OMPI_ALLOW_RUN_AS_ROOT=1 OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1 \
-  mpirun -np 2 foamExec simpleFoam
+OMPI_ALLOW_RUN_AS_ROOT=1 OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1   mpirun -np 4 foamExec laserbeamFoam
 ```
 
 ---
