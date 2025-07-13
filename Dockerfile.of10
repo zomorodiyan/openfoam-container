@@ -57,5 +57,14 @@ RUN source $FOAM_INST_DIR/OpenFOAM-10/etc/bashrc && \
 # Auto-load OpenFOAM for interactive shells
 RUN echo "source $FOAM_INST_DIR/OpenFOAM-10/etc/bashrc" >> /etc/bash.bashrc
 
+# Create non-root openfoam user with home directory
+RUN useradd -m -s /bin/bash openfoam
+RUN chown -R openfoam:openfoam /home/openfoam $FOAM_INST_DIR
+
+# Switch to non-root user
+USER openfoam
+ENV HOME=/home/openfoam
+
 # Default working directory
 WORKDIR /home/openfoam
+
